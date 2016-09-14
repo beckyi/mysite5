@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bbs">
+   	
+	<select id="listBoard" resultType="kr.ac.sungkyul.mysite.vo.BBSVo">
+      	<![CDATA[
+      		SELECT no, title, regdate FROM BBS
+      	]]>
+   	</select>
+   	
+   	<select id="readBoard" parameterType="java.lang.Long" resultType="kr.ac.sungkyul.mysite.vo.BBSVo">
+   		<![CDATA[
+   			select * from BBS where no = #{no}
+   		]]>
+   	</select>
+   	
+	<insert id="insertBoard" parameterType="kr.ac.sungkyul.mysite.vo.BBSVo">
+      
+      <!-- 미리 아래 컴파일하기 전에 미리 컴파일  - no를 받아와 아래 쿼리에 삽입하여 검색 (해당 게시글마다 파일을 저장할때 유용)-->
+      <selectKey resultType="java.lang.Long" keyProperty="no" order="BEFORE">
+         <![CDATA[
+             SELECT seq_bbs.nextVal as no FROM DUAL
+         ]]>
+      </selectKey>
+      
+      <![CDATA[      
+         INSERT into BBS values (#{no }, #{title }, #{content }, sysdate)
+      ]]>
+   </insert>
+	
+   <insert id="insertAttahFile" parameterType="kr.ac.sungkyul.mysite.vo.AttachFileVo">
+		<![CDATA[
+			insert into bbs_file(
+				fno, no, path,orgName,saveName,fileSize
+			)
+			values(
+				seq_bbs_file.nextVal, #{no}, #{path}, #{orgName}, #{saveName}, #{fileSize}
+			)
+		]]>
+	</insert>
+	   	
+   	<select id="selectAttachFileByNo" parameterType="java.lang.Long" 
+   		 resultType="kr.ac.sungkyul.mysite.vo.AttachFileVo">
+   		 <![CDATA[
+   			select * from bbs_file where no= #{no}
+   		]]>
+   	</select>
+
+   <select id="selectAttachFileByFNo" parameterType="java.lang.Long"
+      resultType="kr.ac.sungkyul.mysite.vo.AttachFileVo">
+       <![CDATA[
+             select * from bbs_file where fno=#{fno }
+       ]]>
+   </select>
+   	
+</mapper>
