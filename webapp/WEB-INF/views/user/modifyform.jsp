@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/mysite2/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="/mysite5/assets/css/user.css" rel="stylesheet" type="text/css">
 <c:if test='${"success"== param.res }'>
 	<script>
 			alert( "성공적으로 수정하였습니다." );

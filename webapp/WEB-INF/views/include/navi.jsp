@@ -3,7 +3,7 @@
 
 <div id="navigation">
 	<ul>
-		<li><a href="">최재은</a></li>
+		<li><a href="/mysite5/main">최재은</a></li>
 		<li><a href="/mysite5/guestbook/list">방명록</a></li>
 		<li><a href="/mysite5/bbs/list">게시판</a></li>
 	</ul>

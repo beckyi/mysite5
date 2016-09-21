@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.ac.sungkyul.mysite.service.BBSService;
@@ -92,6 +94,19 @@ public class BBSController {
 			
 		fin.close();
 		    
+	}
+	
+	@RequestMapping(value = "view2", method = RequestMethod.GET)
+	public String view2() {
+		return "board/view2";
+	}
+
+	@ResponseBody	//jsp파일 안찾고 보내줌
+	@RequestMapping(value = "readAjax", method = RequestMethod.POST)
+	public BBSVo readBoardAjax(@RequestBody BBSVo bbsVo) {	//Request 객체받음, script or DB 객체 분별
+//		BBSVo bbsVo = bbsService.readBoard(no);
+		System.out.println(bbsVo.toString());
+		return bbsVo;
 	}
 	
 }
